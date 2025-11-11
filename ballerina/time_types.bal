@@ -41,68 +41,69 @@ public type Seconds decimal;
 # 86401 on day with a positive leap second).
 public type Utc readonly & [int, decimal];
 
-# Represents Sunday from integer 0.
+# Sunday as integer 0.
 public const int SUNDAY = 0;
-# Represents Monday from integer 1.
+# Monday as integer 1.
 public const int MONDAY = 1;
-# Represents Tuesday from integer 2.
+# Tuesday as integer 2.
 public const int TUESDAY = 2;
-# Represents Wednesday from integer 3.
+# Wednesday as integer 3.
 public const int WEDNESDAY = 3;
-# Represents Thursday from integer 4.
+# Thursday as integer 4.
 public const int THURSDAY = 4;
-# Represents Friday from integer 5.
+# Friday as integer 5.
 public const int FRIDAY = 5;
-# Represents Saturday from integer 6.
+# Saturday as integer 6.
 public const int SATURDAY = 6;
 
-# Represents the day of week according to the US convention, where the week starts on Sunday.
+# Day of the week according to the US convention, starting on Sunday.
 public type DayOfWeek SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY;
 
-# Represents fields of the Date record.
+# Fields of the Date record.
 #
-# + year - Year as an integer
-# + month - Month as an integer (1 <= month <= 12)
-# + day - Day as an integer (1 <= day <= 31)
+# + year - Year as an integer.
+# + month - Month as an integer (1 <= month <= 12).
+# + day - Day as an integer (1 <= day <= 31).
 type DateFields record {
     int year;
     int month;
     int day;
 };
 
-# Represents fields of the TimeOfDay record.
-# + hour - Hour as an integer(0 <= hour <= 23)
-# + minute - Minute as an integer(0 <= minute <= 59)
-# + second - Second as decimal value with nanoseconds precision
+# Fields of the TimeOfDay record.
+#
+# + hour - Hour as an integer (0 <= hour <= 23).
+# + minute - Minute as an integer (0 <= minute <= 59).
+# + second - Second as a decimal value with nanoseconds precision.
 type TimeOfDayFields record {
     int hour;
     int minute;
     Seconds second?;
 };
 
-# Represents a date in the proleptic Gregorian calendar with all fields being optional.
+# A date in the proleptic Gregorian calendar with optional fields.
 #
-# + year - Year as an integer
-# + month - Month as an integer (1 <= month <= 12)
-# + day - Day as an integer (1 <= day <= 31)
+# + year - Year as an integer.
+# + month - Month as an integer (1 <= month <= 12).
+# + day - Day as an integer (1 <= day <= 31).
 type OptionalDateFields record {
     int year?;
     int month?;
     int day?;
 };
 
-# Represents a time of day with all fields being optional.
+# A time of day with optional fields.
 #
-# + hour - Hour as an integer (0 <= hour <= 23)
-# + minute - Minute as an integer (0 <= minute <= 59)
-# + second - Second as a decimal value with nanoseconds precision
+# + hour - Hour as an integer (0 <= hour <= 23).
+# + minute - Minute as an integer (0 <= minute <= 59).
+# + second - Second as a decimal value with nanoseconds precision.
 type OptionalTimeOfDayFields record {
     int hour?;
     int minute?;
     Seconds second?;
 };
 
-# Represents a date in the proleptic Gregorian calendar.
+# A date in the proleptic Gregorian calendar.
 #
 # + utcOffset - Optional zone offset
 public type Date record {
@@ -111,7 +112,7 @@ public type Date record {
     ZoneOffset utcOffset?;
 };
 
-# Represents time within a day.
+# Time within a day.
 # Not always as a duration from midnight.
 #
 # + utcOffset - Optional zone offset
@@ -121,7 +122,7 @@ public type TimeOfDay record {
     ZoneOffset utcOffset?;
 };
 
-# Represents a time zone offset.
+# Time zone offset.
 #
 # Constraints:
 # - If any of the fields (`hours`, `minutes`, `seconds`) are > 0, then all must be >= 0.
@@ -143,13 +144,13 @@ type ReadWriteZoneOffset record {|
     decimal seconds?;
 |};
 
-# Represents the `Z` zone, hours: 0 and minutes: 0.
+# The `Z` zone with hours: 0 and minutes: 0.
 public final ZoneOffset Z = {hours: 0};
 
-# Represents the type that can be either zero or one.
+# Type that can be either zero or one.
 public type ZERO_OR_ONE 0|1;
 
-# Represents time within some region relative to a time scale stipulated by civilian authorities.
+# Time within a region relative to a time scale stipulated by civilian authorities.
 #
 # + utcOffset - An optional zone offset
 # + timeAbbrev - If present, abbreviation for the local time (e.g., EDT, EST) in effect at the time represented by this record;
@@ -174,10 +175,10 @@ public type Civil record {
     DayOfWeek dayOfWeek?;
 };
 
-# Represents default zone value in different formats.
+# Default zone value in different formats.
 public type UtcZoneHandling "0"|"GMT"|"UT"|"Z";
 
-# Represents the time duration used to adjust a civil date-time value by a specified amount.
+# Time duration used to adjust a civil date-time value by a specified amount.
 # The duration can be added to or subtracted from the civil time.
 # Fields in the record can be negative, in which case the duration is subtracted.
 public type Duration record {|

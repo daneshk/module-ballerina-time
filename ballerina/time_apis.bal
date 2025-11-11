@@ -15,7 +15,7 @@
 // under the License.
 import ballerina/jballerina.java;
 
-# Returns the UTC representing the current time (current instant of the system clock in seconds from the epoch of `1970-01-01T00:00:00`).
+# Returns the `time:Utc` representing the current time (current instant of the system clock in seconds from the epoch of `1970-01-01T00:00:00`).
 # ```ballerina
 # time:Utc utc = time:utcNow();
 # ```
@@ -41,7 +41,7 @@ public isolated function monotonicNow() returns decimal {
 # time:Utc|time:Error utc = time:utcFromString("2007-12-03T10:15:30.00Z");
 # ```
 # + timestamp - The RFC 3339 timestamp as a string (e.g., `2007-12-03T10:15:30.00Z`)
-# + return - The corresponding UTC value or a `time:Error` when the specified timestamp
+# + return - The corresponding `time:Utc` value or a `time:Error` when the specified timestamp
 # is not adhere to the RFC 3339 format (e.g., `2007-12-03T10:15:30.00Z`)
 public isolated function utcFromString(string timestamp) returns Utc|Error {
     return externUtcFromString(timestamp);
@@ -90,7 +90,7 @@ public isolated function utcAddSeconds(Utc utc, Seconds seconds) returns Utc {
 #         and the second element is the fractional part of the last second.
 # + utc2 - 2nd UTC time as a tuple `[int, decimal]`, where the first element is the seconds from the epoch
 #         and the second element is the fractional part of the last second.
-# + return - The difference between `utc1` and `utc2` in seconds
+# + return - The difference between two UTC times in seconds
 public isolated function utcDiffSeconds(Utc utc1, Utc utc2) returns Seconds {
     return externUtcDiffSeconds(utc1, utc2);
 }
@@ -112,7 +112,7 @@ public isolated function dateValidate(Date date) returns Error? {
 # time:DayOfWeek day = time:dayOfWeek(date);
 # ```
 # + date - The date for which the day of the week is to be calculated
-# + return - The `time:DayOfWeek` if the `date` is valid or else panic
+# + return - The `time:DayOfWeek` if the date is valid or else panic
 public isolated function dayOfWeek(Date date) returns DayOfWeek {
     DayOfWeek[] daysOfWeek = [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY];
     return daysOfWeek[checkpanic externDayOfWeek(date)];
@@ -125,7 +125,7 @@ public isolated function dayOfWeek(Date date) returns DayOfWeek {
 # ```
 # + utc - The UTC time as a tuple `[int, decimal]`, where the first element is the seconds from the epoch
 #         and the second element is the fractional part of the last second.
-# + return - The corresponding Civil value
+# + return - The corresponding `time:Civil` value
 public isolated function utcToCivil(Utc utc) returns Civil {
     return externUtcToCivil(utc);
 }
@@ -136,7 +136,7 @@ public isolated function utcToCivil(Utc utc) returns Civil {
 # time:Utc utc = time:utcFromCivil(civil);
 # ```
 # + civilTime - The civil value to be converted
-# + return - The corresponding UTC value or an error if `utcOffset` is missing
+# + return - The corresponding `time:Utc` value or an error if `utcOffset` is missing
 public isolated function utcFromCivil(Civil civilTime) returns Utc|Error {
     ZoneOffset utcOffset;
     if civilTime?.utcOffset is () {
@@ -163,7 +163,7 @@ public isolated function utcFromCivil(Civil civilTime) returns Utc|Error {
 # time:Civil|time:Error civil2 = time:civilFromString("2007-12-03T10:15:30.00Z");
 # ```
 # + dateTimeString - The RFC 3339 timestamp as a string (e.g., `2007-12-03T10:15:30.00Z`).
-# + return - The corresponding civil value or an error if the given `dateTimeString` is invalid
+# + return - The corresponding `time:Civil` value or a `time:Error` if the given `dateTimeString` is invalid
 public isolated function civilFromString(string dateTimeString) returns Civil|Error {
     return check externCivilFromString(dateTimeString);
 }
@@ -217,7 +217,7 @@ public isolated function utcToEmailString(Utc utc, UtcZoneHandling zh = "0") ret
 # time:Civil|time:Error emailDateTime = time:civilFromEmailString("Wed, 10 Mar 2021 19:51:55 -0820");
 # ```
 # + dateTimeString - The RFC 5322 formatted string to be converted (e.g., `Wed, 10 Mar 2021 19:51:55 -0800 (PST)`)
-# + return - The corresponding civil record or an error if the given string is incorrectly formatted.
+# + return - The corresponding `time:Civil` value or a `time:Error` if the given string is incorrectly formatted.
 public isolated function civilFromEmailString(string dateTimeString) returns Civil|Error {
     return check externCivilFromEmailString(dateTimeString);
 }
@@ -227,7 +227,7 @@ public isolated function civilFromEmailString(string dateTimeString) returns Civ
 # time:Civil civil = check time:civilFromString("2021-04-12T23:20:50.520+05:30[Asia/Colombo]");
 # string|time:Error emailDateTime = time:civilToEmailString(civil, time:PREFER_ZONE_OFFSET);
 # ```
-# + civil - The civil record to be converted
+# + civil - The `time:Civil` record to be converted
 # + zoneHandling - Specifies how to handle the zone. Possible values include:
 #     - `PREFER_ZONE_OFFSET`: Use the zone offset for the output.
 #     - `PREFER_TIME_ABBREV`: Use the time abbreviation for the output.

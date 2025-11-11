@@ -17,5 +17,5 @@
 # Represents a generic module-level error.
 public type Error error;
 
-# Represents an error to be returned when arguments are invalid.
+# An error to be returned when arguments are invalid.
 public type FormatError distinct Error;
