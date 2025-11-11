@@ -130,7 +130,7 @@ public isolated function utcToCivil(Utc utc) returns Civil {
     return externUtcToCivil(utc);
 }
 
-# Converts a given civil value to an UTC timestamp.
+# Converts a given civil value to a UTC timestamp.
 # ```ballerina
 # time:Civil civil = time:utcToCivil(time:utcNow());
 # time:Utc utc = time:utcFromCivil(civil);
